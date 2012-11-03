@@ -42,6 +42,9 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
   end
+  
+  FakeWeb.allow_net_connect = false
+  FakeWeb.allow_net_connect = %r[^https?://127.0.0.1] # for javascript testing
 end
 
 Spork.each_run do
