@@ -11,7 +11,15 @@ class ServiceController < ApplicationController
 	  	else
 	  		raise_error 'You have to use either url or source argument.'
 	  	end
-	  end
+    end
+
+    def prepare_max
+      if params[:max]
+        @max = params[:max]
+      else
+        @max = 10
+      end
+    end
 
 	  def raise_error(message)
 	  	response = { 

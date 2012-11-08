@@ -6,7 +6,8 @@ gem 'rails', '3.2.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
+#gem 'libv8', '3.3.10.4'
+#gem 'less-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,7 +20,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
-  gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
@@ -40,6 +41,8 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'ruby-readability'
+
+gem 'sanitize'
 
 group :test, :development do
   gem 'rspec-rails'

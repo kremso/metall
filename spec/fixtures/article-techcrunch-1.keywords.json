@@ -1,0 +1,42 @@
+[
+    {
+        "keyword": "well",
+        "rating": 2.2364
+    },
+    {
+        "keyword": "crew",
+        "rating": 1.91031
+    },
+    {
+        "keyword": "will",
+        "rating": 1.5
+    },
+    {
+        "keyword": "raft",
+        "rating": 1.30593
+    },
+    {
+        "keyword": "evil",
+        "rating": 1.13686
+    },
+    {
+        "keyword": "publishers",
+        "rating": 1.125
+    },
+    {
+        "keyword": "fact-checking",
+        "rating": 1.05307
+    },
+    {
+        "keyword": "publishing",
+        "rating": 1
+    },
+    {
+        "keyword": "order",
+        "rating": 0.90719
+    },
+    {
+        "keyword": "recording",
+        "rating": 0.90644
+    }
+]

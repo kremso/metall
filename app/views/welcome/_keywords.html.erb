@@ -5,8 +5,28 @@
 	  </h1>
 	</div>
 
-	<p>
-		
-	</p>
+    <b>GET /keywords.json</b>
+
+  	<ul>
+  		<li><b>url</b> Url of file to be downloaded.</li>
+        <li><b>max</b> Maximum number of keywords returned (default: 10).</li>
+  	</ul>
+
+  	<p>Returns extracted content.</p>
+
+  	<b>POST /keywords.json</b>
+
+  	<ul>
+  		<li><b>source</b> Data to be used.</li>
+        <li><b>max</b> Maximum number of keywords returned (default: 10).</li>
+  	</ul>
+
+  	<b>Examples</b>
+
+  	<p>
+  		Download and extract keywords from techcrunch article.
+  		<br>
+  		<%= example_link_to content_url(url: 'http://nitra.sme.sk/c/6588534/najstarsiu-rotundu-v-strednej-europe-uvidi-verejnost.html', format: :json) %>
+  	</p>
 </section>
 
