@@ -1,13 +1,12 @@
 class ContentController < ServiceController
-  before_filter :prepare_source, only: :service
+  before_filter :prepare_content, only: :service
 
   respond_to :json
 
   def service
-  	content = Readability::Document.new(@source).content
   	response = { 
   		success: true, 
-  		content: content 
+  		content: @content
   	}
   	respond_with(response, location: nil)
   end

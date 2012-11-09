@@ -1,14 +1,11 @@
 class KeywordsController < ServiceController
-  before_filter :prepare_source, only: :service
+  before_filter :prepare_content, only: :service
   before_filter :prepare_max, only: :service
 
   respond_to :json
 
   def service
-    content = Readability::Document.new(@source).content
-    Sanitize.clean!(content)
-
-    keywords = Keyword.new(content).extract
+    keywords = KeywordExtractor.new(@content).extract
 
   	response = {
   		success: true,

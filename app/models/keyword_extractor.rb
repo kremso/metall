@@ -1,6 +1,6 @@
 DEFAULT_IDF = 1.5
 
-class Keyword
+class KeywordExtractor
   def initialize(text)
     @stopwords = Stopword.where(language: 'en').pluck(:word)
     @num_documents = TotalDocuments.where(language: 'en').first.number
