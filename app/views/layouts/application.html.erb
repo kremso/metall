@@ -6,9 +6,33 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="260">
 
-<%= yield %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+  	<div class="container">
+	    <a class="brand" href="/">Metall2</a>
+	    <ul class="nav">
+			<li><%= link_to 'Introduction', '#section-introduction' %></li>
+			<li><%= link_to 'Content extraction', '#section-content' %></li>
+			<li><%= link_to 'Keyword extraction', '#section-keywords' %></li>
+	    </ul>
+	  </div>
+  </div>
+</div>
+
+<header class="jumbotron">
+	<div class="container">
+	  <h1>Metall2</h1>
+	  <p class="lead">
+	  	Text metadata extraction service from URLs or text content. 
+	  </p>
+  	</div>
+</header>
+
+<div class="container span9">
+	<%= yield %>
+</div>
 
 </body>
 </html>
