@@ -6,7 +6,111 @@
 	</div>
 
 	<p>
-		Text metadata extraction service from URLs or text content. Metall wraps and unifies several metadata-related webservices and libraries.
+		Metall2 is a text metadata extraction service. It can extract metadata from URLs or text content. It wraps and unifies several metadata-related webservices and libraries.
 	</p>
+
+	<p>Use GET or POST methods. </p>
+
+	<pre>
+GET     <%= root_url %>[service].[format][options]
+POST    <%= root_url %>[service].[format][options]</pre>
+
+	<p>Possible services.</p>
+
+	<ul>
+		<li><%= link_to 'content', '#content' %></li>
+		<li><%= link_to 'keyword', '#keyword' %></li>
+	</ul>
+
+	<p>Possible formats.</p>
+
+	<ul>
+		<li>json</li>
+	</ul>
+
+	<p>You must use one of <em>input source options</em>. </p>
+
+	<table class="table">
+		<caption>Input source options</caption>
+		<thead>
+			<tr>
+				<th class="span2">Option</th>
+				<th class="span2">Default value</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>url</td>
+				<td><em>none</em></td>
+				<td>
+					<p>Input source data is downloaded from specified URL. Example: </p>
+					<pre>http://nitra.sme.sk/c/6588534/najstarsiu-rotundu-v-strednej-europe-uvidi-verejnost.html</pre>
+				</td>
+			</tr>
+			<tr>
+				<td>source</td>
+				<td><em>none</em></td>
+				<td>
+					<p>Input source data is included in request (POST request method can be used here). Example:</p>
+					<pre>
+	Social media is a required avenue for brands to engage their customers. However, social media engagement is primarily based on conversations and personalized interactions that are difficult to scale. Influencer marketing provides brands with the leverage to reach many by engaging only a few illusive influencers.</pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>You can also use <em>input preprocessing options</em>.</p>
+
+	<table class="table">
+		<caption>Input preprocessing options</caption>
+		<thead>
+			<tr>
+				<th class="span2">Option</th>
+				<th class="span2">Default value</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>content_type</td>
+				<td><em>detected</em></td>
+				<td>
+					<p>When using <em>source</em> input source option, you should specify input source content type. When using <em>url</em> input source option, content type is detected and this option can be used to override. Example content types:</p>
+
+					<pre>
+text/html
+application/xhtml+xml
+text/plain</pre>
+				</td>
+			</tr>
+			<tr>
+				<td>encoding</td>
+				<td><em>detected</em></td>
+				<td>
+					<p>Encoding is detected when input source format is HTML (<em>content_type</em> must be detected or set). This option can be used to override. Input source is always converted from input encoding to UTF-8. Example encodings:</p>
+
+					<pre>
+UTF-8
+Windows-1250</pre>
+				</td>
+			</tr>
+			<tr>
+				<td>extract_content</td>
+				<td><em>false</em>, <em>true</em> for HTML</td>
+				<td>
+					<p>Extract main readable content part from HTML input source. This option defaults to <em>true</em> when input source format is HTML. </p>
+				</td>
+			</tr>
+			<tr>
+				<td>sanitize</td>
+				<td><em>false</em>, <em>true</em> for HTML</td>
+				<td>
+					<p>Strip all HTML tags. This option defaults to <em>true</em> when input source format is HTML. </p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </section>
+
 

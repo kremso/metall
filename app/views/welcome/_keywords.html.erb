@@ -2,31 +2,36 @@
 	<div class="page-header">
 	  <h1>
 	  	Keyword extraction
+      <small>/keywords</small>
 	  </h1>
 	</div>
 
-    <b>GET /keywords.json</b>
+  <p>Extracts keywords sorted by TF/IDF rating.</p>
 
-  	<ul>
-  		<li><b>url</b> Url of file to be downloaded.</li>
-        <li><b>max</b> Maximum number of keywords returned (default: 10).</li>
-  	</ul>
+  <table class="table">
+    <caption>Service options</caption>
+    <thead>
+      <tr>
+        <th class="span2">Option</th>
+        <th class="span2">Default value</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>max</td>
+        <td><em>10</em></td>
+        <td>
+          <p>Maximum number of keywords returned. </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  	<p>Returns extracted content.</p>
-
-  	<b>POST /keywords.json</b>
-
-  	<ul>
-  		<li><b>source</b> Data to be used.</li>
-        <li><b>max</b> Maximum number of keywords returned (default: 10).</li>
-  	</ul>
-
-  	<b>Examples</b>
-
-  	<p>
-  		Download and extract keywords from techcrunch article.
+  	<p class="well well-small">
+  		Download and extract keywords from Techcrunch article.
   		<br>
-  		<%= example_link_to content_url(url: 'http://nitra.sme.sk/c/6588534/najstarsiu-rotundu-v-strednej-europe-uvidi-verejnost.html', format: :json) %>
+  		<%= example_link_to keywords_url(url: 'http://techcrunch.com/2012/11/09/can-social-media-influence-really-be-measured/', format: :json) %>
   	</p>
 </section>
 
