@@ -2,7 +2,7 @@ class ServiceController < ApplicationController
 
   protected
 
-	  def prepare_content
+	  def preprocess_input
 	  	@options = params.except(:controller, :action, :format)
 	  	@options.each_key { |key|
 	  		@options[key] = false if @options[key] == 'false'
