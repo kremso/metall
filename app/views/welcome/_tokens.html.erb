@@ -1,0 +1,17 @@
+<section id="section-tokens">
+	<div class="page-header">
+	  <h1>
+	  	Token extraction
+		<small>/content</small>
+	  </h1>
+	</div>
+
+	<p>Does nothing except returning tokens after input source preprocessing and tokenization. Can be used for input tokenization with stemming or lemmatization. This service can be also used to debug input tokens for other services. </p>
+
+	<p class="well well-small">
+		Tokenize content from sme.sk article.
+		<br>
+		<%= example_link_to tokens_url(url: 'http://nitra.sme.sk/c/6588534/najstarsiu-rotundu-v-strednej-europe-uvidi-verejnost.html', format: :json) %>
+	</p>
+</section>
+
