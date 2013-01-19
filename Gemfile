@@ -40,7 +40,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'ruby-readability'
-
+gem 'fast-stemmer'
 gem 'sanitize'
 
 group :test, :development do

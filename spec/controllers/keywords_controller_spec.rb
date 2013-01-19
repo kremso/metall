@@ -40,6 +40,59 @@ describe KeywordsController do
       json['keywords'].second.should == { "keyword" => "and", "rating" => 0.73973 }
     end
 
+    it "returns keywords using stemming" do
+      FakeWeb.register_uri(
+        :get,
+        "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
+        :body => File.read(File.dirname(__FILE__) + '/../fixtures/article-techcrunch-1.html'),
+        :content_type => 'text/html'
+      )
+
+      get 'service',
+        url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
+        format: :json, 
+        max: 100
+
+      response.should be_success
+      json = JSON.parse(response.body)
+      keywords = json['keywords'].map { |kw|
+        kw['keyword']
+      }
+
+      keywords.should include 'starvat'
+      keywords.should include 'dehydr'
+      keywords.should_not include 'starvation'
+      keywords.should_not include 'dehydration'
+      keywords.should include 'world'
+    end
+
+    it "returns keywords without stemming" do
+      FakeWeb.register_uri(
+        :get,
+        "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
+        :body => File.read(File.dirname(__FILE__) + '/../fixtures/article-techcrunch-1.html'),
+        :content_type => 'text/html'
+      )
+
+      get 'service',
+        url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
+        format: :json, 
+        max: 100, 
+        stem: false
+
+      response.should be_success
+      json = JSON.parse(response.body)
+      keywords = json['keywords'].map { |kw|
+        kw['keyword']
+      }
+
+      keywords.should include 'starvation'
+      keywords.should include 'dehydration'
+      keywords.should_not include 'starvat'
+      keywords.should_not include 'dehydr'
+      keywords.should include 'world'
+    end
+
     it "returns maximum number of keywords with rating from web page url in english" do
       FakeWeb.register_uri(
         :get,

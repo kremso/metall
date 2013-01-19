@@ -1,11 +1,11 @@
 DEFAULT_IDF = 1.5
 
 class KeywordExtractor
-  def initialize(text)
+  def initialize(tokens)
     @stopwords = Stopword.where(language: 'en').pluck(:word)
     @num_documents = TotalDocuments.where(language: 'en').first.number
 
-    @text = text
+    @tokens = tokens
   end
 
   # returns idf value for a word
@@ -18,14 +18,13 @@ class KeywordExtractor
     end
   end
 
-  # returns a hash of rated keywords sorted from the best rated to least from text using tf-idf
+  # returns a hash of rated keywords sorted from the best rated to least from tokens using tf-idf
   def extract
     # split source into array of words excluding stopwords
-    words = @text.downcase.split
-    words.each { |w| w.gsub!(/\A[\d_\W]+|[\d_\W]+\Z/, '') }
+    words = @tokens
     words.delete_if { |w| w.empty? || @stopwords.include?(w) }
 
-    # create hash of words with number of their instances in text
+    # create hash of words with number of their instances in tokens
     words_hash = Hash.new(0)
     words.each { |w| words_hash[w] += 1 }
 

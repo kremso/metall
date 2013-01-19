@@ -46,6 +46,14 @@ class ServiceController < ApplicationController
   		if @options[:sanitize]
   			Sanitize.clean!(@content)
   		end
+
+  		# tokenization
+	    @tokens = @content.downcase.split
+	    @tokens.each { |w| w.gsub!(/\A[\d_\W]+|[\d_\W]+\Z/, '') }
+
+	    unless @options[:stem] == false
+	    	@tokens = @tokens.map(&:stem)
+	    end
     end
 
     def prepare_max
