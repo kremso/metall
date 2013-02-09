@@ -42,11 +42,11 @@ gem 'debugger'
 gem 'ruby-readability'
 gem 'fast-stemmer'
 gem 'sanitize'
+gem 'faraday'
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'capybara', "~> 1.1.2"
   gem 'spork', "~> 0.9.0"
   gem 'fakeweb'
-  gem 'faraday'
 end                    
