@@ -1,3 +1,5 @@
+require 'faraday'
+
 class ServiceController < ApplicationController
 
   protected
