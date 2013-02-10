@@ -31,17 +31,18 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
 
 gem 'ruby-readability'
 gem 'fast-stemmer'
 gem 'sanitize'
+gem 'faraday'
 
 gem 'delayed_job_active_record'
 
@@ -50,5 +51,4 @@ group :test, :development do
   gem 'capybara', "~> 1.1.2"
   gem 'spork', "~> 0.9.0"
   gem 'fakeweb'
-  gem 'faraday'
 end                    
