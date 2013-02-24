@@ -44,6 +44,8 @@ gem 'fast-stemmer'
 gem 'sanitize'
 gem 'faraday'
 
+gem 'delayed_job_active_record'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'capybara', "~> 1.1.2"

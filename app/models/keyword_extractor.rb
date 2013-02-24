@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 DEFAULT_IDF = 1.5
 
 class KeywordExtractor
@@ -21,7 +23,7 @@ class KeywordExtractor
   # returns a hash of rated keywords sorted from the best rated to least from tokens using tf-idf
   def extract
     # split source into array of words excluding stopwords
-    words = @tokens
+    words = @tokens.collect{ |t| t.force_encoding('UTF-8').gsub('’', '\'') }
     words.delete_if { |w| w.empty? || @stopwords.include?(w) }
 
     # create hash of words with number of their instances in tokens
