@@ -16,7 +16,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   gem 'twitter-bootstrap-rails'
-  gem 'less-rails'
+  gem 'less-rails', '2.2.0'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
