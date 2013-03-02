@@ -54,6 +54,11 @@ class ServiceController < ApplicationController
 	    unless @options[:stem] == false
 	    	@tokens = @tokens.map(&:stem)
 	    end
+
+	    if @options[:lemmatize]
+	    	lemmatization_service = LemmatizationService.new
+	    	@tokens = lemmatization_service.lemmatize(@tokens)
+	    end
     end
 
     def prepare_max
