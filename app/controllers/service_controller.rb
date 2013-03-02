@@ -2,7 +2,7 @@ class ServiceController < ApplicationController
 
   protected
 
-	  def preprocess_input
+	  def preprocess
 	  	@options = params.except(:controller, :action, :format)
 	  	@options.each_key { |key|
 	  		@options[key] = false if @options[key] == 'false'
@@ -46,8 +46,9 @@ class ServiceController < ApplicationController
   		if @options[:sanitize]
   			Sanitize.clean!(@content)
   		end
+    end
 
-  		# tokenization
+    def tokenize
 	    @tokens = @content.downcase.split
 	    @tokens.each { |w| w.gsub!(/\A[\d_\W]+|[\d_\W]+\Z/, '') }
 
