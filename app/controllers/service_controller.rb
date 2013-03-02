@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ServiceController < ApplicationController
 
   protected
@@ -49,8 +51,9 @@ class ServiceController < ApplicationController
     end
 
     def tokenize
-	    @tokens = @content.downcase.split
-	    @tokens.each { |w| w.gsub!(/\A[\d_\W]+|[\d_\W]+\Z/, '') }
+	    @tokens = @content.downcase.split.map { |w| 
+	    	w.force_encoding('UTF-8').gsub('’', '\'').gsub(/\A[\d_\W]+|[\d_\W]+\Z/, '') 
+	    }
 
 	    unless @options[:stem] == false
 	    	@tokens = @tokens.map(&:stem)
