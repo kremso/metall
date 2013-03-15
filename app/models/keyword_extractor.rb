@@ -1,6 +1,8 @@
 DEFAULT_IDF = 1.5
 
 class KeywordExtractor
+  LANGUAGE = 'en'
+  CATEGORY = 1
 
   def initialize(tokens)
     @tokens = tokens
@@ -11,8 +13,8 @@ class KeywordExtractor
     idfs = Hash[words.map { |w|
       [w, DEFAULT_IDF]
     }]
-    Corpus.where(language: 'en', word: words).each { |result|
-      idfs[result.word] = Math.log( num_documents_for('en') / (result.count.to_f + 1) )
+    CorpusEn.where(category_id: CATEGORY, word: words).each { |result|
+      idfs[result.word] = Math.log( num_documents_for('en', CATEGORY) / (result.count.to_f + 1) )
     }
     idfs
   end
@@ -50,8 +52,8 @@ class KeywordExtractor
     }]
   end
 
-  def num_documents_for(language)
+  def num_documents_for(language, category)
     @@num_documents_for ||= {}
-    @@num_documents_for[language] ||= TotalDocuments.where(language: language).first.number
+    @@num_documents_for[language] ||= TotalDocuments.where(language: language, category_id: category).first.number
   end
 end

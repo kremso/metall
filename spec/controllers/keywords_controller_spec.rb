@@ -3,21 +3,21 @@ require 'spec_helper'
 describe KeywordsController do
 
   before do
-    Corpus.create({ language: 'en', word: 'to', count: 6332195 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'you', count: 3085642 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'they', count: 1865844 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'not', count: 1638883 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'go', count: 1151045 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'her', count: 969591 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'as', count: 829018 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'think', count: 772787 }, without_protection: true)
-    Corpus.create({ language: 'en', word: 'take', count: 670745 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'to', count: 6332195 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'you', count: 3085642 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'they', count: 1865844 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'not', count: 1638883 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'go', count: 1151045 }, without_protection: true)
+    CorpusEn.create({ category_id: 4, word: 'her', count: 969591 }, without_protection: true)
+    CorpusEn.create({ category_id: 3, word: 'as', count: 829018 }, without_protection: true)
+    CorpusEn.create({ category_id: 2, word: 'think', count: 772787 }, without_protection: true)
+    CorpusEn.create({ category_id: 1, word: 'take', count: 670745 }, without_protection: true)
 
     Stopword.create({ language: 'en', word: 'a' }, without_protection: true)
     Stopword.create({ language: 'en', word: 'able' }, without_protection: true)
     Stopword.create({ language: 'en', word: 'to' }, without_protection: true)
 
-    TotalDocuments.create({ language: 'en', number: '6461423' }, without_protection: true)    
+    TotalDocuments.create({ language: 'en', category_id: 1, number: '6461423' }, without_protection: true)
   end
 
   describe "GET 'service'" do

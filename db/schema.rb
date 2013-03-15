@@ -11,15 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205133727) do
+ActiveRecord::Schema.define(:version => 20130315121212) do
 
-  create_table "corpus", :force => true do |t|
-    t.string  "language"
-    t.string  "word"
-    t.integer "count"
+  create_table "categories", :force => true do |t|
+    t.string "language"
+    t.string "name"
   end
 
-  add_index "corpus", ["language", "word"], :name => "index_corpus_on_language_and_word"
+  create_table "corpus_en", :force => true do |t|
+    t.string  "word"
+    t.integer "count"
+    t.integer "category_id"
+  end
+
+  add_index "corpus_en", ["category_id", "word"], :name => "index_corpus_on_category_id_and_word"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -47,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130205133727) do
   create_table "total_documents", :force => true do |t|
     t.string  "language"
     t.integer "number"
+    t.integer "category_id"
   end
 
 end
