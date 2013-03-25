@@ -1,5 +1,5 @@
 class ContentController < ServiceController
-  before_filter :preprocess, only: :service
+  before_filter :prepare_content, only: :service
 
   respond_to :json
 

@@ -53,7 +53,7 @@ describe KeywordsController do
       get 'service',
         url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
         format: :json, 
-        max: 100
+        limit: 100
 
       response.should be_success
       json = JSON.parse(response.body)
@@ -79,7 +79,7 @@ describe KeywordsController do
       get 'service',
         url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
         format: :json, 
-        max: 100, 
+        limit: 100, 
         stem: false
 
       response.should be_success
@@ -105,7 +105,7 @@ describe KeywordsController do
 
       get 'service',
         url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/",
-        max: 5, 
+        limit: 5, 
         format: :json
 
       response.should be_success
@@ -143,7 +143,7 @@ describe KeywordsController do
       it "returns maximum number of keywords with rating from web page url in english" do
         post 'service',
           source: File.read(File.dirname(__FILE__) + '/../fixtures/article-techcrunch-1.html'),
-          max: 5,
+          limit: 5,
           content_type: 'text/html', 
           format: :json
 
