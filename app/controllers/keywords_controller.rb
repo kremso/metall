@@ -5,6 +5,7 @@ class KeywordsController < ServiceController
   before_filter :prepare_limit, only: :service
 
   respond_to :json
+  respond_to :xml
 
   def service
     keywords = KeywordExtractorService.new(@tokens, @language, @category.id).extract

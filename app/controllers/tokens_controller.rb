@@ -3,6 +3,7 @@ class TokensController < ServiceController
   before_filter :prepare_tokens, only: :service
 
   respond_to :json
+  respond_to :xml
 
   def service
   	response = { 
