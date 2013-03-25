@@ -14,7 +14,7 @@ class KeywordExtractorService
       [w, DEFAULT_IDF]
     }]
     
-    Kernel.const_get("Corpus#{@language.camelize}").where(category_id: @category, word: words).each { |result|
+    Corpus.for_language(@language).where(category_id: @category, word: words).each { |result|
       idfs[result.word] = Math.log( num_documents_for('en', @category) / (result.count.to_f + 1) )
     }
     idfs
