@@ -19,6 +19,7 @@ POST    <%= root_url %>[service].[format][options]</pre>
 
 	<ul>
 		<li><%= link_to 'content', '#section-content' %></li>
+		<li><%= link_to 'tokens', '#section-tokens' %></li>
 		<li><%= link_to 'keywords', '#section-keywords' %></li>
 	</ul>
 
@@ -115,6 +116,54 @@ Windows-1250</pre>
 				<td><em>true</em></td>
 				<td>
 					<p>Stem all words after tokenization. </p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>You can also use <em>corpus selection options</em>.</p>
+
+	<table class="table" id="table-corpus-selection-options">
+		<caption>Corpus selection options</caption>
+		<thead>
+			<tr>
+				<th class="span2">Option</th>
+				<th class="span2">Default value</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>language</td>
+				<td><em>en</em></td>
+				<td>
+					<p>Language of input source. Supported languages are:</p>
+
+					<ul>
+					<% TotalDocuments.pluck(:language).each do |language| %>
+						<li><%= language %></li>
+					<% end %>
+					</ul>
+				</td>
+				</td>
+			</tr>
+			<tr>
+				<td>category</td>
+				<td>First category of selected language.</td>
+				<td>
+					<p>Category of input source. Supported categories per language are:</p>
+
+					<ul>
+					<% TotalDocuments.pluck(:language).each do |language| %>
+						<li><%= language %></li>
+						<ul>
+							<% TotalDocuments.where(language: language).includes(:category).each do |total_documents| %>
+								<li><%= total_documents.category.name %></li>
+							<% end %>
+						</ul>
+					<% end %>
+					</ul>
+				</td>
 				</td>
 			</tr>
 		</tbody>
