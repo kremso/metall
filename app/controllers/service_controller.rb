@@ -68,6 +68,14 @@ class ServiceController < ApplicationController
     def language
     	@language = @options[:language].present? ? @options[:language] : 'en'
     	raise "Unknown language #{@language}" unless %w{en}.include? @language
+
+    	if @options[:category].present?
+    		@category = Category.where(language: @language, name: @options[:category]).first
+    		raise "Unknown category #{@options[:category]} for language #{@language}." unless @category
+    	else
+    		@category = Category.where(language: @language).first
+    		raise "No category for language #{@options[:category]}." unless @category
+    	end
     end
 
     def prepare_max

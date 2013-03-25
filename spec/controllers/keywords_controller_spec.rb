@@ -18,6 +18,8 @@ describe KeywordsController do
     Stopword.create({ language: 'en', word: 'to' }, without_protection: true)
 
     TotalDocuments.create({ language: 'en', category_id: 1, number: '6461423' }, without_protection: true)
+
+    Category.create language: 'en', name: 'default'
   end
 
   describe "GET 'service'" do
