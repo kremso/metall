@@ -1,12 +1,13 @@
 class KeywordsController < ServiceController
   before_filter :preprocess, only: :service
   before_filter :tokenize, only: :service
+  before_filter :language, only: :service
   before_filter :prepare_max, only: :service
 
   respond_to :json
 
   def service
-    keywords = KeywordExtractor.new(@tokens).extract
+    keywords = KeywordExtractor.new(@tokens, @language).extract
 
   	response = {
   		success: true,

@@ -1,11 +1,12 @@
 DEFAULT_IDF = 1.5
 
 class KeywordExtractor
-  LANGUAGE = 'en'
+  DEFAULT_LANGUAGE = 'en'
   CATEGORY = 1
 
-  def initialize(tokens)
+  def initialize(tokens, language = DEFAULT_LANGUAGE)
     @tokens = tokens
+    @language = language
   end
 
   # returns idf value for a word
@@ -13,7 +14,7 @@ class KeywordExtractor
     idfs = Hash[words.map { |w|
       [w, DEFAULT_IDF]
     }]
-    CorpusEn.where(category_id: CATEGORY, word: words).each { |result|
+    Kernel.const_get("Corpus#{@language.camelize}").where(category_id: CATEGORY, word: words).each { |result|
       idfs[result.word] = Math.log( num_documents_for('en', CATEGORY) / (result.count.to_f + 1) )
     }
     idfs

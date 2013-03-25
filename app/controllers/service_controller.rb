@@ -65,6 +65,11 @@ class ServiceController < ApplicationController
 	    end
     end
 
+    def language
+    	@language = @options[:language].present? ? @options[:language] : 'en'
+    	raise "Unknown language #{@language}" unless %w{en}.include? @language
+    end
+
     def prepare_max
       if params[:max]
         @max = params[:max]
