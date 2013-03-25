@@ -5,24 +5,32 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="260">
 
 <div class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
   	<div class="container">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
 	    <a class="brand" href="/">Metallurgy</a>
-	    <ul class="nav">
-			<li><%= link_to 'Introduction', '#section-introduction' %></li>
-			<li><%= link_to 'Content extraction', '#section-content' %></li>
-			<li><%= link_to 'Token extraction', '#section-tokens' %></li>
-			<li><%= link_to 'Keyword extraction', '#section-keywords' %></li>
-	    </ul>
+	    <div class="nav-collapse collapse">
+		    <ul class="nav">
+				<li><%= link_to 'Introduction', '#section-introduction' %></li>
+				<li><%= link_to 'Content extraction', '#section-content' %></li>
+				<li><%= link_to 'Token extraction', '#section-tokens' %></li>
+				<li><%= link_to 'Keyword extraction', '#section-keywords' %></li>
+		    </ul>
+	    </div>
 	  </div>
   </div>
 </div>
 
-<header class="jumbotron">
+<header class="jumbotron visible-desktop">
 	<div class="container">
 	  <h1>Metallurgy</h1>
 	  <p class="lead">
