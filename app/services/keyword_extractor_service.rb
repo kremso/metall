@@ -1,10 +1,8 @@
 DEFAULT_IDF = 1.5
 
 class KeywordExtractorService
-  DEFAULT_LANGUAGE = 'en'
-  DEFAULT_CATEGORY = 1
 
-  def initialize(tokens, language = DEFAULT_LANGUAGE, category = DEFAULT_CATEGORY)
+  def initialize(tokens, language, category)
     @tokens = tokens
     @language = language
     @category = category
