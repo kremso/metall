@@ -7,7 +7,7 @@ class KeywordsController < ServiceController
   respond_to :json
 
   def service
-    keywords = KeywordExtractor.new(@tokens, @language, @category.id).extract
+    keywords = KeywordExtractorService.new(@tokens, @language, @category.id).extract
 
   	response = {
   		success: true,

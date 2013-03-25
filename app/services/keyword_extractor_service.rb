@@ -1,6 +1,6 @@
 DEFAULT_IDF = 1.5
 
-class KeywordExtractor
+class KeywordExtractorService
   DEFAULT_LANGUAGE = 'en'
   DEFAULT_CATEGORY = 1
 
