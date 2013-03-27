@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315121212) do
+ActiveRecord::Schema.define(:version => 20130322012413) do
 
   create_table "categories", :force => true do |t|
     t.string "language"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(:version => 20130315121212) do
   end
 
   add_index "corpus_en", ["category_id", "word"], :name => "index_corpus_on_category_id_and_word"
+
+  create_table "corpus_sk", :force => true do |t|
+    t.integer "category_id"
+    t.string  "word"
+    t.integer "count"
+  end
+
+  add_index "corpus_sk", ["category_id", "word"], :name => "index_corpus_sk_on_category_id_and_word"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -48,6 +56,23 @@ ActiveRecord::Schema.define(:version => 20130315121212) do
   end
 
   add_index "stopwords", ["language"], :name => "index_stopwords_on_language"
+
+  create_table "topcategories", :id => false, :force => true do |t|
+    t.integer "id",               :null => false
+    t.integer "page_id"
+    t.integer "category"
+    t.integer "topcategoriescol"
+  end
+
+  add_index "topcategories", ["page_id"], :name => "topcategories_page_id_idx"
+
+  create_table "topcategories2", :id => false, :force => true do |t|
+    t.integer "id",       :null => false
+    t.integer "page_id"
+    t.integer "category"
+  end
+
+  add_index "topcategories2", ["page_id"], :name => "topcategories2_page_id_idx"
 
   create_table "total_documents", :force => true do |t|
     t.string  "language"

@@ -12,7 +12,7 @@ class LemmatizationService
 		}
 		if response.success?
 			response.body.split
-		else
+    else
 			raise 'Lemmatization service error.'
 		end
 	end
