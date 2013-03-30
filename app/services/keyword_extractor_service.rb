@@ -55,6 +55,7 @@ class KeywordExtractorService
 
   def num_documents_for(language, category)
     @@num_documents_for ||= {}
-    @@num_documents_for[language] ||= TotalDocuments.where(language: language, category_id: category).first.number
+    @@num_documents_for[language] ||= {}
+    @@num_documents_for[language][category] ||= TotalDocuments.where(language: language, category_id: category).first.number
   end
 end
