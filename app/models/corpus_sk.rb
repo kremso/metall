@@ -1,5 +1,3 @@
-class CorpusSk < ActiveRecord::Base
+class CorpusSk < Corpus
   self.table_name = 'corpus_sk'
-
-  belongs_to :category
 end

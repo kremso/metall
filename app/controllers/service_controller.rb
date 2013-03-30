@@ -1,15 +1,18 @@
 # encoding: utf-8
 
 class ServiceController < ApplicationController
+  before_filter :prepare_options
 
   protected
 
-	  def preprocess
-	  	@options = params.except(:controller, :action, :format)
+  	  def prepare_options
+  	  	@options = params.except(:controller, :action, :format)
 	  	@options.each_key { |key|
 	  		@options[key] = false if @options[key] == 'false'
 	  	}
+  	  end
 
+	  def prepare_content
 	  	# source or url
 	  	if @options[:source]
 	  		@content = @options[:source]
@@ -50,7 +53,7 @@ class ServiceController < ApplicationController
   		end
     end
 
-    def tokenize
+    def prepare_tokens
 	    @tokens = @content.downcase.split.map { |w| 
 	    	w.force_encoding('UTF-8').gsub('’', '\'').gsub(/\A[\d_\W]+|[\d_\W]+\Z/, '') 
 	    }
@@ -65,11 +68,28 @@ class ServiceController < ApplicationController
 	    end
     end
 
-    def prepare_max
-      if params[:max]
-        @max = params[:max]
+    def prepare_language_and_category
+    	if @options[:language].present?
+    		@language = @options[:language] 
+    	else
+    		@language = 'en'
+    	end
+    	raise "Unknown language #{@language}" unless %w{en}.include? @language
+
+    	if @options[:category].present?
+    		@category = Category.where(language: @language, name: @options[:category]).first
+    		raise "Unknown category #{@options[:category]} for language #{@language}." unless @category
+    	else
+    		@category = Category.where(language: @language).first
+    		raise "No category for language #{@options[:category]}." unless @category
+    	end
+    end
+
+    def prepare_limit
+      if params[:limit].present?
+        @limit = params[:limit]
       else
-        @max = 10
+        @limit = 10
       end
     end
 

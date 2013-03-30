@@ -1,15 +1,19 @@
 class KeywordsController < ServiceController
-  before_filter :preprocess, only: :service
-  before_filter :tokenize, only: :service
-  before_filter :prepare_max, only: :service
+  before_filter :prepare_content, only: :service
+  before_filter :prepare_tokens, only: :service
+  before_filter :prepare_language_and_category, only: :service
+  before_filter :prepare_limit, only: :service
 
   respond_to :json
+  respond_to :xml
 
   def service
-    keywords = KeywordExtractor.new(@tokens).extract
+    keywords = KeywordExtractorService.new(@tokens, @language, @category.id).extract
 
   	response = {
   		success: true,
+      language: @language, 
+      category: @category.name,
   		keywords: format_keywords(keywords)
   	}
   	respond_with(response, location: nil)
@@ -18,7 +22,7 @@ class KeywordsController < ServiceController
   private
     def format_keywords(keywords)
       kws_array = []
-      keywords.first(@max).each do |k, r|
+      keywords.first(@limit).each do |k, r|
         kws_array << { keyword: k, rating: r }
       end
       kws_array
