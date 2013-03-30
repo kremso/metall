@@ -98,7 +98,9 @@ class ServiceController < ApplicationController
     end
 
 	rescue_from StandardError do |error|
-		if %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
+    if not Rails.env.production?
+      raise error
+		elsif %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
 			raise error
 		else
 	  		response = { 
