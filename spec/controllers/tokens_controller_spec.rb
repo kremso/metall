@@ -26,30 +26,5 @@ describe TokensController do
       tokens.should_not include 'dehydration'
       tokens.should include 'world'
     end
-
-    it "returns tokens from web page url without stemming" do
-      FakeWeb.register_uri(
-        :get, 
-        "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/", 
-        :body => File.read(File.dirname(__FILE__) + '/../fixtures/article-techcrunch-1.html'), 
-        :content_type => 'text/html'
-      )
-
-      get 'service', 
-          url: "http://techcrunch.com/2012/11/03/quick-tie-the-rafts-together/", 
-          sanitize: false, 
-          format: :json, 
-          stem: false
-
-      response.should be_success
-      json = JSON.parse(response.body)
-      tokens = json['tokens']
-      tokens.count.should == 1037
-      tokens.should_not include 'starvat'
-      tokens.should_not include 'dehydr'
-      tokens.should include 'starvation'
-      tokens.should include 'dehydration'
-      tokens.should include 'world'
-    end
   end
 end

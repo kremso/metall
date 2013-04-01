@@ -1,7 +1,8 @@
 class KeywordsController < ServiceController
   before_filter :prepare_content, only: :service
+  before_filter :prepare_language, only: :service
   before_filter :prepare_tokens, only: :service
-  before_filter :prepare_language_and_category, only: :service
+  before_filter :prepare_category, only: :service
   before_filter :prepare_limit, only: :service
 
   respond_to :json

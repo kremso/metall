@@ -53,29 +53,30 @@ class ServiceController < ApplicationController
   		end
     end
 
+    def prepare_language
+      if @options[:language].present?
+        @language = @options[:language] 
+      else
+        @language = 'en'
+      end
+      raise "Unknown language #{@language}" unless %w{en}.include? @language
+    end
+
     def prepare_tokens
 	    @tokens = @content.downcase.split.map { |w| 
 	    	w.force_encoding('UTF-8').gsub('’', '\'').gsub(/\A[\d_\W]+|[\d_\W]+\Z/, '') 
 	    }
 
-	    unless @options[:stem] == false
-	    	@tokens = @tokens.map(&:stem)
-	    end
-
-	    if @options[:lemmatize]
-	    	lemmatization_service = LemmatizationService.new
-	    	@tokens = lemmatization_service.lemmatize(@tokens)
-	    end
+      case @language
+      when 'en'
+        @tokens = @tokens.map(&:stem)
+      when 'sk'
+        lemmatization_service = LemmatizationService.new
+        @tokens = lemmatization_service.lemmatize(@tokens)
+      end
     end
 
-    def prepare_language_and_category
-    	if @options[:language].present?
-    		@language = @options[:language] 
-    	else
-    		@language = 'en'
-    	end
-    	raise "Unknown language #{@language}" unless %w{en}.include? @language
-
+    def prepare_category
     	if @options[:category].present?
     		@category = Category.where(language: @language, name: @options[:category]).first
     		raise "Unknown category #{@options[:category]} for language #{@language}." unless @category
