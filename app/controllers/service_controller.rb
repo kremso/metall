@@ -59,7 +59,7 @@ class ServiceController < ApplicationController
       else
         @language = 'en'
       end
-      raise "Unknown language #{@language}" unless %w{en}.include? @language
+      raise "Unknown language #{@language}" unless %w{en sk}.include? @language
     end
 
     def prepare_tokens
