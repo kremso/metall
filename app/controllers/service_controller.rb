@@ -92,7 +92,7 @@ class ServiceController < ApplicationController
 
     def prepare_limit
       if params[:limit].present?
-        @limit = params[:limit]
+        @limit = params[:limit].to_i
       else
         @limit = 10
       end
