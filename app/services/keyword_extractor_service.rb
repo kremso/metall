@@ -15,7 +15,7 @@ class KeywordExtractorService
     }]
     
     Corpus.for_language(@language).where(category_id: @category, word: words).each { |result|
-      idfs[result.word] = Math.log( num_documents_for('en', @category) / (result.count.to_f + 1) )
+      idfs[result.word] = Math.log( num_documents_for(@language, @category) / (result.count.to_f + 1) )
     }
     idfs
   end
@@ -25,7 +25,7 @@ class KeywordExtractorService
     # create hash of words with number of their instances in tokens excluding stopwords
     words_hash = Hash.new(0)
     @tokens.each { |w| 
-      unless w.empty? or stop_words_for('en')[w]
+      unless w.empty? or stop_words_for(@language)[w]
         words_hash[w] += 1 
       end
     }
