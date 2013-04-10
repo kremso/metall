@@ -11,7 +11,9 @@ class LemmatizationService
 			req.body = words.join(' ')
 		}
 		if response.success?
-			response.body.split
+			response.body.split.map { |word|
+				word.force_encoding('utf-8')
+			}
     else
 			raise 'Lemmatization service error.'
 		end
