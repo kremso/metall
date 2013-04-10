@@ -71,7 +71,7 @@ class ServiceController < ApplicationController
       when 'en'
         @tokens = @tokens.map(&:stem)
       when 'sk'
-        unless @options[:lematize]
+        unless @options[:lematize] == false
           lemmatization_service = LemmatizationService.new
           @tokens = lemmatization_service.lemmatize(@tokens)
         end
