@@ -5,12 +5,12 @@ class ServiceController < ApplicationController
 
   protected
 
-  	  def prepare_options
-  	  	@options = params.except(:controller, :action, :format)
-	  	@options.each_key { |key|
-	  		@options[key] = false if @options[key] == 'false'
-	  	}
-  	  end
+	  def prepare_options
+	  	@options = params.except(:controller, :action, :format)
+    	@options.each_key { |key|
+    		@options[key] = false if @options[key] == 'false'
+    	}
+	  end
 
 	  def prepare_content
 	  	# source or url
@@ -83,10 +83,6 @@ class ServiceController < ApplicationController
     	else
     		@category = Category.where(language: @language).first
     		raise "No category for language #{@options[:category]}." unless @category
-
-    		# detection = DetectionService.new(@tokens)
-    		# @category = detection.category(@language)
-    		# raise @category.to_yaml
     	end
     end
 
