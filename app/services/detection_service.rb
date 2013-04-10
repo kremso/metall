@@ -10,6 +10,7 @@ class DetectionService
 	end
 
 	def category_scores(language)
+		# word frequencies
 		tokens_hash = Hash.new(0)
 	    @tokens.each { |w| 
 	      unless w.empty? or Stopword.stop_words_for(language)[w]
@@ -17,6 +18,7 @@ class DetectionService
 	      end
 	    }
 
+	    # only first N words
 		first = tokens_hash.sort_by{ |token, count| 
 			count 
 		}.reverse.map { |token, count| 
