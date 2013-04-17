@@ -39,11 +39,11 @@ class ServiceController < ApplicationController
   		end
 
   		# convert to utf-8
-		@options[:encoding] ||= @content.encoding.name
+		  @options[:encoding] ||= @content.encoding.name
 	  	if @options[:encoding] != 'UTF-8'
-			converter = Encoding::Converter.new(@options[:encoding], 'UTF-8')
-			@content = converter.convert(@content)
-			converter.finish
+  			converter = Encoding::Converter.new(@options[:encoding], 'UTF-8')
+  			@content = converter.convert(@content)
+  			converter.finish
   		else
   			@content.force_encoding('UTF-8')
   		end
@@ -71,7 +71,7 @@ class ServiceController < ApplicationController
       when 'en'
         @tokens = @tokens.map(&:stem)
       when 'sk'
-        unless @options[:lematize] == false
+        unless @options[:lematize] == false # undocumented
           lemmatization_service = LemmatizationService.new
           @tokens = lemmatization_service.lemmatize(@tokens)
         end
