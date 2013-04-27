@@ -23,8 +23,8 @@ class KeywordsController < ServiceController
   private
     def format_keywords(keywords)
       kws_array = []
-      keywords.first(@limit).each do |k, r|
-        kws_array << { keyword: k, rating: r }
+      keywords.first(@limit).each do |word, rank, idf|
+        kws_array << { keyword: word, rating: rank, idf: idf }
       end
       kws_array
     end

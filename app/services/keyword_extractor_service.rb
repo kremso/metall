@@ -33,15 +33,16 @@ class KeywordExtractorService
     idfs_hash = get_idfs(words_hash.keys)
 
     # calculate tf-idf for each word into keywords array
-    keywords = {}
+    keywords = []
     max_num = words_hash.values.max.to_f
     words_hash.each do |word, num|
       tf = num / max_num
-      keywords[word] = (tf * idfs_hash[word]).round(5)
+      idf = idfs_hash[word]
+      keywords << [word, (tf * idf).round(5), idf.round(5)]
     end
 
     # return keywords sorted by rank descending
-    keywords.sort_by {|k, v| -v}
+    keywords.sort_by {|word, rank, idf| -rank}
   end
 
   private
