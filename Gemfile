@@ -44,6 +44,7 @@ gem 'ruby-readability'
 gem 'fast-stemmer'
 gem 'sanitize'
 gem 'faraday'
+gem 'rabl'
 
 gem 'delayed_job_active_record'
 

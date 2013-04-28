@@ -9,5 +9,8 @@ Metall2::Application.routes.draw do
   get "/keywords" => "keywords#service"
   post "/keywords" => "keywords#service"
 
+  get "/detection" => "detection#service"
+  post "/detection" => "detection#service"
+
   root :to => 'welcome#index'
 end

@@ -5,12 +5,12 @@ class ServiceController < ApplicationController
 
   protected
 
-  	  def prepare_options
-  	  	@options = params.except(:controller, :action, :format)
-	  	@options.each_key { |key|
-	  		@options[key] = false if @options[key] == 'false'
-	  	}
-  	  end
+	  def prepare_options
+	  	@options = params.except(:controller, :action, :format)
+    	@options.each_key { |key|
+    		@options[key] = false if @options[key] == 'false'
+    	}
+	  end
 
 	  def prepare_content
 	  	# source or url
@@ -39,11 +39,11 @@ class ServiceController < ApplicationController
   		end
 
   		# convert to utf-8
-		@options[:encoding] ||= @content.encoding.name
+		  @options[:encoding] ||= @content.encoding.name
 	  	if @options[:encoding] != 'UTF-8'
-			converter = Encoding::Converter.new(@options[:encoding], 'UTF-8')
-			@content = converter.convert(@content)
-			converter.finish
+  			converter = Encoding::Converter.new(@options[:encoding], 'UTF-8')
+  			@content = converter.convert(@content)
+  			converter.finish
   		else
   			@content.force_encoding('UTF-8')
   		end
@@ -53,29 +53,32 @@ class ServiceController < ApplicationController
   		end
     end
 
+    def prepare_language
+      if @options[:language].present?
+        @language = @options[:language] 
+      else
+        @language = 'en'
+      end
+      raise "Unknown language #{@language}" unless %w{en sk}.include? @language
+    end
+
     def prepare_tokens
 	    @tokens = @content.downcase.split.map { |w| 
 	    	w.force_encoding('UTF-8').gsub('’', '\'').gsub(/\A[\d_\W]+|[\d_\W]+\Z/, '') 
 	    }
 
-	    unless @options[:stem] == false
-	    	@tokens = @tokens.map(&:stem)
-	    end
-
-	    if @options[:lemmatize]
-	    	lemmatization_service = LemmatizationService.new
-	    	@tokens = lemmatization_service.lemmatize(@tokens)
-	    end
+      case @language
+      when 'en'
+        @tokens = @tokens.map(&:stem)
+      when 'sk'
+        unless @options[:lematize] == false # undocumented
+          lemmatization_service = LemmatizationService.new
+          @tokens = lemmatization_service.lemmatize(@tokens)
+        end
+      end
     end
 
-    def prepare_language_and_category
-    	if @options[:language].present?
-    		@language = @options[:language] 
-    	else
-    		@language = 'en'
-    	end
-    	raise "Unknown language #{@language}" unless %w{en}.include? @language
-
+    def prepare_category
     	if @options[:category].present?
     		@category = Category.where(language: @language, name: @options[:category]).first
     		raise "Unknown category #{@options[:category]} for language #{@language}." unless @category
@@ -87,14 +90,16 @@ class ServiceController < ApplicationController
 
     def prepare_limit
       if params[:limit].present?
-        @limit = params[:limit]
+        @limit = params[:limit].to_i
       else
         @limit = 10
       end
     end
 
 	rescue_from StandardError do |error|
-		if %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
+    if Rails.env.development?
+      raise error
+		elsif %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
 			raise error
 		else
 	  		response = { 

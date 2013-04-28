@@ -1,5 +1,6 @@
 class TokensController < ServiceController
   before_filter :prepare_content, only: :service
+  before_filter :prepare_language, only: :service
   before_filter :prepare_tokens, only: :service
 
   respond_to :json
