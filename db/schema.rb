@@ -11,12 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322012413) do
+ActiveRecord::Schema.define(:version => 20130426221744) do
 
   create_table "categories", :force => true do |t|
     t.string "language"
     t.string "name"
   end
+
+  create_table "corpus_2gram_sk", :force => true do |t|
+    t.string  "words"
+    t.integer "count"
+  end
+
+  add_index "corpus_2gram_sk", ["words"], :name => "index_corpus_2gram_sk_on_words"
 
   create_table "corpus_en", :force => true do |t|
     t.string  "word"
