@@ -1,5 +1,5 @@
 class LemmatizationService
-	FIIT_LEMMATIZATOR_SERVICE_URL = 'http://37.205.9.155/lemmatizer/'
+	FIIT_LEMMATIZATOR_SERVICE_URL = 'http://37.205.9.155:8080/lematizer/services/lemmatizer/lemmatize/fast'
 
 	def initialize
 	end
