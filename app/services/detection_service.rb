@@ -18,7 +18,7 @@ class DetectionService
 	      end
 	    }
 
-	    # only first N words
+	  # only first N words
 		first = tokens_hash.sort_by{ |token, count| 
 			count 
 		}.reverse.map { |token, count| 
