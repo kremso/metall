@@ -6,6 +6,7 @@ class KeywordsController < ServiceController
   before_filter :prepare_limit, only: :service
 
   before_filter :prepare_request, only: :batch_result
+  before_filter :prepare_documents, only: :batch_service
 
   respond_to :json
   respond_to :xml
@@ -23,19 +24,25 @@ class KeywordsController < ServiceController
   end
 
   def batch_service
-    request = BatchKeywordRequest.create(callback_url: params[:callback_url])
+    bkr = BatchKeywordRequest.create(callback_url: params[:callback_url])
 
-    params[:documents].each do |d|
-      dk = DocumentKeyword.create(batch_keyword_request_id: request.id, options: d)
+    @documents.each do |d|
+      dk = DocumentKeyword.create(batch_keyword_request_id: bkr.id, options: d)
       dk.delay.extract!
     end
 
     response = {
       success: true,
-      uid: request.uid,
-      callback_url: request.callback_url,
+      uid: bkr.uid
     }
-    respond_with(response, location: nil)
+
+    ru_json = batch_keywords_result_url(format: 'json', uid: bkr.uid)
+    ru_xml = batch_keywords_result_url(format: 'json', uid: bkr.uid)
+
+    respond_to do |format|
+      format.json { render json: response.merge(result_url: ru_json).to_json, location: ru_json }
+      format.json { render json: response.merge(result_url: ru_xml).to_xml, location: ru_xml }
+    end
   end
 
   def batch_result
@@ -59,11 +66,13 @@ class KeywordsController < ServiceController
   private
 
     def prepare_request
-      @request = BatchKeywordRequest.where(uid: params[:uid])
-      if @request.nil?
-        raise 'Bad request UID.'
-      else
-        @request = @request.first
-      end
+      @request = BatchKeywordRequest.find_by_uid(params[:uid])
+      raise 'Bad request UID.' if @request.nil?
     end
+
+    def prepare_documents
+      @documents = params[:documents]
+      raise 'No documents received.' unless @documents.present?
+    end
+
 end

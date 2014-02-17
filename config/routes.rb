@@ -10,7 +10,7 @@ Metall2::Application.routes.draw do
   post "/keywords" => "keywords#service"
 
   post "/batch/keywords" => "keywords#batch_service"
-  get "/batch/keywords" => "keywords#batch_result"
+  get "/batch/keywords" => "keywords#batch_result", as: "batch_keywords_result"
 
   get "/detection" => "detection#service"
   post "/detection" => "detection#service"
