@@ -36,6 +36,8 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano', '~> 2.15'
 
+gem 'net-ssh', '2.7.0'
+
 # To use debugger
 gem 'debugger'
 
