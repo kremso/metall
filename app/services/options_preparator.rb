@@ -24,7 +24,7 @@ class OptionsPreparator
       raise "Unknown category #{@options[:category]} for language #{@language}." unless category
     else
       category = Category.where(language: language).first
-      raise "No category for language #{@options[:category]}." unless category
+      raise "No category for language '#{language}'." unless category
     end
 
     category
