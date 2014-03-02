@@ -7,7 +7,7 @@ class CatchJsonParseErrors
   def call(env)
     begin
       @app.call(env)
-    rescue MultiJson::DecodeError => error
+    rescue MultiJson::LoadError => error
       if env['HTTP_ACCEPT'] =~ /application\/json/
         error_output = "There was a problem in the submitted JSON: #{error}"
         return [
