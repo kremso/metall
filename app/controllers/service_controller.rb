@@ -44,7 +44,6 @@ class ServiceController < ApplicationController
       raise error
 		elsif %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
 			raise error
-    elsif error == ::ActionController::RoutingError, ::ActionController::MissingTemplate
 		else
 	  		response = {
 	  			success: false,
