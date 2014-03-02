@@ -48,15 +48,7 @@ ActiveRecord::Schema.define(:version => 20140205213309) do
     t.integer "category_id"
   end
 
-  add_index "corpus_en", ["category_id", "word"], :name => "index_corpus_en_on_category_id_and_word"
-
-  create_table "corpus_en_stem", :force => true do |t|
-    t.string  "word"
-    t.integer "count"
-    t.integer "category_id"
-  end
-
-  add_index "corpus_en_stem", ["category_id", "word"], :name => "index_corpus_on_category_id_and_word"
+  add_index "corpus_en", ["category_id", "word"], :name => "index_corpus_on_category_id_and_word"
 
   create_table "corpus_sk", :force => true do |t|
     t.integer "category_id"
@@ -64,15 +56,7 @@ ActiveRecord::Schema.define(:version => 20140205213309) do
     t.integer "count"
   end
 
-  add_index "corpus_sk", ["category_id", "word"], :name => "index_on_category_id_and_word"
-
-  create_table "corpus_sk_wiki", :force => true do |t|
-    t.integer "category_id"
-    t.string  "word"
-    t.integer "count"
-  end
-
-  add_index "corpus_sk_wiki", ["category_id", "word"], :name => "index_corpus_sk_on_category_id_and_word"
+  add_index "corpus_sk", ["category_id", "word"], :name => "index_corpus_sk_on_category_id_and_word"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -109,23 +93,6 @@ ActiveRecord::Schema.define(:version => 20140205213309) do
   end
 
   add_index "stopwords", ["language"], :name => "index_stopwords_on_language"
-
-  create_table "topcategories", :id => false, :force => true do |t|
-    t.integer "id",               :null => false
-    t.integer "page_id"
-    t.integer "category"
-    t.integer "topcategoriescol"
-  end
-
-  add_index "topcategories", ["page_id"], :name => "topcategories_page_id_idx"
-
-  create_table "topcategories2", :id => false, :force => true do |t|
-    t.integer "id",       :null => false
-    t.integer "page_id"
-    t.integer "category"
-  end
-
-  add_index "topcategories2", ["page_id"], :name => "topcategories2_page_id_idx"
 
   create_table "total_documents", :force => true do |t|
     t.string  "language"

@@ -64,5 +64,9 @@ module Metall2
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Middleware
+    config.middleware.insert_before ActionDispatch::ParamsParser, "CatchJsonParseErrors"
+
   end
 end

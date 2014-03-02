@@ -6,7 +6,7 @@ gem 'rails', '~> 3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'mysql2'
+# gem 'mysql2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -19,13 +19,8 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'twitter-bootstrap-rails', :platforms => :ruby
-  gem 'less-rails', '2.2.0', :platforms => :ruby
+  gem 'less-rails', :platforms => :ruby
 end
-
-# gem 'therubyracer'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-#gem 'therubyracer', :platforms => :ruby
 
 gem 'jquery-rails'
 
@@ -51,6 +46,7 @@ gem 'faraday'
 gem 'rabl'
 
 gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :test, :development do
   gem 'rspec-rails'

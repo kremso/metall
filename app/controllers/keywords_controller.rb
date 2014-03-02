@@ -40,8 +40,8 @@ class KeywordsController < ServiceController
     ru_xml = batch_keywords_result_url(format: 'json', uid: bkr.uid)
 
     respond_to do |format|
-      format.json { render json: response.merge(result_url: ru_json).to_json, location: ru_json }
-      format.json { render json: response.merge(result_url: ru_xml).to_xml, location: ru_xml }
+      format.json { render json: response.merge(result_url: ru_json).to_json, location: ru_json, status: 202 }
+      format.json { render json: response.merge(result_url: ru_xml).to_xml, location: ru_xml, status: 202 }
     end
   end
 

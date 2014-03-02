@@ -3,6 +3,12 @@ class ServiceController < ApplicationController
 
   protected
 
+    def render_unsupported
+      respond_to do |format|
+        format.all { render text: "Unsupported format. We support JSON and XML.", status: 415 }
+      end
+    end
+
 	  def prepare_options
       options = params.except(:controller, :action, :format)
       options.each_key { |key|
@@ -38,6 +44,7 @@ class ServiceController < ApplicationController
       raise error
 		elsif %w{ArgumentError NoMethodError NameError}.include?(error.class.name)
 			raise error
+    elsif error == ::ActionController::RoutingError, ::ActionController::MissingTemplate
 		else
 	  		response = {
 	  			success: false,
