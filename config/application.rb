@@ -66,6 +66,7 @@ module Metall2
     config.assets.version = '1.0'
 
     # Middleware
+    config.middleware.insert_before ActionDispatch::ParamsParser, "CatchWrongFormat"
     config.middleware.insert_before ActionDispatch::ParamsParser, "CatchJsonParseErrors"
 
   end

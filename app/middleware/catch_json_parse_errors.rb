@@ -8,7 +8,7 @@ class CatchJsonParseErrors
     begin
       @app.call(env)
     rescue MultiJson::LoadError => error
-      if env['HTTP_ACCEPT'] =~ /application\/json/
+      if env['CONTENT_TYPE'] =~ /application\/json/
         error_output = "There was a problem in the submitted JSON: #{error}"
         return [
           400, { "Content-Type" => "application/json" },
