@@ -1,0 +1,73 @@
+<section id="section-batch-keywords">
+  <div class="page-header">
+    <h1>
+      Batch keyword extraction
+      <small>/batch/keywords</small>
+    </h1>
+  </div>
+
+  <p>Extracts keywords from a list of documents. Can be used to extract data from a larger number of documents with one request.</p>
+
+  <p>Send a POST request with an array of document data. The document data is the same as in <a href="#section-keywords">basic keyword extraction</a>.</p>
+  
+  <table class="table">
+    <caption>Service options</caption>
+    <thead>
+      <tr>
+        <th class="span2">Option</th>
+        <th class="span2">Default value</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>documents</td>
+        <td><em>none</em></td>
+        <td>
+          <p>Array of documents for extraction.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>callback_url</td>
+        <td><em>none</em></td>
+        <td>
+          <p>Optional parameter. The service sends a GET request to this URL when the processing of the batch request is done.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The service responds with a UID, the identifier of the batch request and with a URL where the result can  be retrieved using a GET request.
+  </p>
+  <p>
+    Calling the result URL will return either the results of the extraction or the status of the batch request if it is not yet completely done.
+  </p>
+
+  <p class="well well-small">
+    Make a batch request to extract keywords from a few wikipedia articles.
+    <br>
+    POST request to <%= example_link_to batch_keywords_url(format: :json) %>
+  </p>
+  <pre>
+{
+  "callback_url": "http://example.com",
+  "documents": [
+    {"language": "en", "url": "http://en.wikipedia.org/wiki/American_football"},
+    {"language": "en", "url": "http://en.wikipedia.org/wiki/The_New_York_Times"},
+    {"language": "en", "url": "http://en.wikipedia.org/wiki/Cold_War"},
+    {"language": "en", "url": "htdatp://en.wikipedia.org/wiki/Cold_War"}
+  ]
+}
+  </pre>
+  <p class="well well-small">
+    Sample response:
+  </p>
+  <pre>
+{
+    "success": true,
+    "uid": "0fabfe34",
+    "result_url": "http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34"
+}
+  </pre>
+</section>
