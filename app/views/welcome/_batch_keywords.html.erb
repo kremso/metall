@@ -8,7 +8,9 @@
 
   <p>Extracts keywords from a list of documents. Can be used to extract data from a larger number of documents with one request.</p>
 
-  <p>Send a POST request with an array of document data. The document data is the same as in <a href="#section-keywords">basic keyword extraction</a>.</p>
+  <p>Send a POST request with an array of document data. The document data is the same as in basic keyword extraction: you have to specify one of the <a href="#table-input-source-options">input source options</a> and you can use <a href="#table-input-preprocessing-options">input preprocessing options</a> and <a href="#table-corpus-selection-options">corpus selection options</a>.</p>
+
+  <p>Since you use a POST request you need to specifiy HTTP header <em>Content-Type</em>.</p>
   
   <table class="table">
     <caption>Service options</caption>
@@ -38,36 +40,60 @@
   </table>
 
   <p>
-    The service responds with a UID, the identifier of the batch request and with a URL where the result can  be retrieved using a GET request.
+    The service responds with a HTTP status code 202 and a Location header with a URL here the result can be retrieved using a GET request. The body of the response is composed of the same data.
   </p>
   <p>
-    Calling the result URL will return either the results of the extraction or the status of the batch request if it is not yet completely done.
+    Calling the result URL will return either:
   </p>
+  <ul>
+    <li>the status of the extraction if it is not yet done,</li>
+    <li>an array containing the extraction results if it is completed.</li>
+  </ul>
+
+  <h4>Sample usage</h4>
 
   <p class="well well-small">
     Make a batch request to extract keywords from a few wikipedia articles.
     <br>
-    POST request to <%= example_link_to batch_keywords_url(format: :json) %>
+    POST request to <%= example_link_to batch_keywords_url(format: :json) %> with the following data:
   </p>
   <pre>
 {
   "callback_url": "http://example.com",
   "documents": [
-    {"language": "en", "url": "http://en.wikipedia.org/wiki/American_football"},
     {"language": "en", "url": "http://en.wikipedia.org/wiki/The_New_York_Times"},
+    {"language": "en", "category": "Sports", "url": "http://en.wikipedia.org/wiki/American_football"},
     {"language": "en", "url": "http://en.wikipedia.org/wiki/Cold_War"},
-    {"language": "en", "url": "htdatp://en.wikipedia.org/wiki/Cold_War"}
+    {"language": "en", "url": "htttp://en.wikipedia.org/wiki/Cold_War"}
   ]
 }
   </pre>
   <p class="well well-small">
-    Sample response:
+    This request yields the following response:
   </p>
   <pre>
+HTTP 202
+Location: http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34
+
 {
     "success": true,
     "uid": "0fabfe34",
     "result_url": "http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34"
 }
   </pre>
+  <p class="well well-small">
+    Requesting the result URL can return either the extraction status, such as:
+  </p>
+  <pre>
+{
+    "success": false,
+    "uid": "0fabfe34",
+    "documents_requested": 4,
+    "documents_done": 1
+}
+  </pre>
+  <p class="well well-small">
+    Or, if the extraction has successfully finished:<br />
+    <a href="http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34">http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34</a>
+  </p>
 </section>
