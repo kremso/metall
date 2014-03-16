@@ -151,6 +151,8 @@ GEM
       guess_html_encoding (>= 0.0.4)
       nokogiri (>= 1.4.2)
     rubyzip (1.1.0)
+    rvm-capistrano (1.5.1)
+      capistrano (~> 2.15.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
     sass (3.2.14)
@@ -194,7 +196,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano (~> 2.15)
+  capistrano
   capybara (~> 1.1.2)
   coffee-rails (~> 3.2.1)
   daemons
@@ -211,6 +213,7 @@ DEPENDENCIES
   rails (~> 3.2.11)
   rspec-rails
   ruby-readability
+  rvm-capistrano
   sanitize
   sass-rails (~> 3.2.3)
   spork (~> 0.9.0)

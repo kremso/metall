@@ -34,7 +34,8 @@ gem 'jquery-rails'
 #gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano', '~> 2.15'
+gem 'capistrano'
+gem 'rvm-capistrano'
 
 gem 'net-ssh', '2.7.0'
 

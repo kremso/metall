@@ -1,16 +1,19 @@
 require "bundler/capistrano"
+require "rvm/capistrano"
 
-server "metallurgy.fiit.stuba.sk", :web, :app, :db, primary: true
+server "188.226.167.196", :web, :app, :db, primary: true
 
 set :application, "metallurgy"
 set :user, "metallurgy"
+set :port, 22
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git://gitbus.fiit.stuba.sk/metall2/metall2.git"
+set :repository, "git@gitbus.fiit.stuba.sk:metall2/metall2.git"
 set :branch, "master"
+
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -26,6 +29,8 @@ namespace :deploy do
   end
 
   task :setup_config, roles: :app do
+    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
+    sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
     run "mkdir -p #{shared_path}/config"
     put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"
     puts "Now edit the config files in #{shared_path}."

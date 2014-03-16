@@ -6,4 +6,11 @@ stdout_path "#{root}/log/unicorn.log"
 
 listen "/tmp/unicorn.metallurgy.sock"
 worker_processes 4
-timeout 180
+timeout 60
+
+
+# Force the bundler gemfile environment variable to
+# reference the capistrano "current" symlink
+before_exec do |_|
+  ENV["BUNDLE_GEMFILE"] = File.join(root, 'Gemfile')
+end
