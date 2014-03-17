@@ -52,6 +52,8 @@
 
   <h4>Sample usage</h4>
 
+  <% uid = BatchKeywordRequest.first.uid if BatchKeywordRequest.first.present? %>
+
   <p class="well well-small">
     Make a batch request to extract keywords from a few wikipedia articles.
     <br>
@@ -73,12 +75,12 @@
   </p>
   <pre>
 HTTP 202
-Location: http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34
+Location: http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=<%= uid %>
 
 {
     "success": true,
     "uid": "0fabfe34",
-    "result_url": "http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34"
+    "result_url": "batch_keywords_result_url(format: :json, uid: uid)"
 }
   </pre>
   <p class="well well-small">
@@ -87,13 +89,13 @@ Location: http://metallurgy.fiit.stuba.sk/batch/keywords.json?uid=0fabfe34
   <pre>
 {
     "success": false,
-    "uid": "0fabfe34",
+    "uid": "<%= uid %>",
     "documents_requested": 4,
     "documents_done": 1
 }
   </pre>
   <p class="well well-small">
     Or, if the extraction has successfully finished:<br />
-    <%= link_to batch_keywords_result_url(format: :json, uid: '0fabfe34'), batch_keywords_result_url(format: :json, uid: '0fabfe34') %>
+    <%= link_to batch_keywords_result_url(format: :json, uid: uid), batch_keywords_result_url(format: :json, uid: uid) %>
   </p>
 </section>
